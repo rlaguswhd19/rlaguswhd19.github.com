@@ -1,0 +1,95 @@
+---
+title:[백준 - SamsungTest] 컨베이어 벨트 위의 로봇
+tags:
+-algorithm
+---
+
+
+
+#### 문제
+
+https://www.acmicpc.net/problem/20055
+
+
+
+#### 문제풀이
+
+> 이번 삼성 코테에서 나왔던 간단한 구현 문제로 다시 풀어봤다.
+>
+> 조건을 보고 마지막 로봇을 생각하면서 풀면 손쉽게 풀 수 있다.
+
+```java
+package SamSungTest;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main20055 {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
+		int n = Integer.parseInt(st.nextToken());
+		int k = Integer.parseInt(st.nextToken());
+		int[] arr = new int[2 * n];
+
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+
+		int[] robots = new int[n];
+
+		int cnt = 0;
+		int ans = 0;
+		while (cnt < k) {
+			robots[robots.length - 1] = 0;
+			rotate(arr);
+			rotate(robots);
+
+			robots[robots.length - 1] = 0;
+			for (int i = robots.length - 2; i >= 0; i--) {
+				if (robots[i] == 1) { 
+					if (robots[i + 1] == 0 && arr[i + 1] > 0) {
+						robots[i] = 0;
+						robots[i + 1] = 1;
+						arr[i + 1]--;
+						if (arr[i + 1] == 0) {
+							cnt++;
+						}
+					}
+				}
+			}
+
+			if (arr[0] > 0) {
+				robots[0] = 1;
+				arr[0]--;
+				if (arr[0] == 0) {
+					cnt++;
+				}
+			}
+
+			ans++;
+		}
+		System.out.println(ans);
+	}
+
+	static void rotate(int[] arr) {
+		int idx = 0;
+		int input = arr[arr.length - 1];
+		int temp = 0;
+
+		while (idx < arr.length) {
+			temp = arr[idx];
+			arr[idx] = input;
+			input = temp;
+			idx++;
+		}
+	}
+}
+```
+
