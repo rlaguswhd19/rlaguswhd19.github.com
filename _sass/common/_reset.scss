@@ -37,7 +37,7 @@
  **/
 
 html {
-  font-size: map-get($base, font-size);
+  font-size: map-get($base, font-size-lg);
   // font-size: 50px;
   -webkit-text-size-adjust: 100%; /* 1 */
   @media print {
@@ -138,7 +138,7 @@ pre, code {
 }
 
 code {
-  font-size: map-get($base, font-size-lg);
+  font-size: map-get($base, font-size);
 // font-size: 70px;
   line-height: map-get($base, line-height-sm);
 }
