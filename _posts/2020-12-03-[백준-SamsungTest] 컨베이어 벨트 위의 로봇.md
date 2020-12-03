@@ -1,7 +1,7 @@
 ---
 title:[백준 - SamsungTest] 컨베이어 벨트 위의 로봇
 tags:
--algorithm
+ - algorithm
 ---
 
 
