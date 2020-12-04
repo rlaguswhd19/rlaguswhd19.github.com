@@ -38,7 +38,6 @@
 
 html {
   font-size: map-get($base, font-size-root);
-  // font-size: 18px;
   -webkit-text-size-adjust: 100%; /* 1 */
   @media print {
     font-size: map-get($base, font-size-root-sm);
