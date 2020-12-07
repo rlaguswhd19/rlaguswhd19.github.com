@@ -2,8 +2,12 @@
 
 <br/>
 
-#### 알고리즘 commit
+#### commit
 
-"algorithm
+1.  add : ""
 
-문제"
+   문제 ,내용
+
+2. update : ""
+
+3. delete : ""
