@@ -83,29 +83,29 @@ public class Dress {
 
 ```java
 @Test
-	@TestDescription("refresh_token을 활용하여 access_token 재발급 Test")
-	public void getAccessTokenByRefreshToken() throws Exception {
+@TestDescription("refresh_token을 활용하여 access_token 재발급 Test")
+public void getAccessTokenByRefreshToken() throws Exception {
 		
-		ResultActions perform = mockMvc.perform(post("/oauth/token")
-				.with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
-				.param("username", appProperties.getUserEmail())
-				.param("password", appProperties.getUserPassword())
-				.param("grant_type", "password")
-				);
+	ResultActions perform = mockMvc.perform(post("/oauth/token")
+			.with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
+			.param("username", appProperties.getUserEmail())
+			.param("password", appProperties.getUserPassword())
+			.param("grant_type", "password")
+			);
 		
-		var responseBody = perform.andReturn().getResponse().getContentAsString();
-		Jackson2JsonParser parser = new Jackson2JsonParser();
-		String reefresh_token = parser.parseMap(responseBody).get("refresh_token").toString();
+	var responseBody = perform.andReturn().getResponse().getContentAsString();
+	Jackson2JsonParser parser = new Jackson2JsonParser();
+	String reefresh_token = parser.parseMap(responseBody).get("refresh_token").toString();
 		
-		mockMvc.perform(post("/oauth/token")
-				.with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
-				.param("refresh_token", reefresh_token)
-				.param("grant_type", "refresh_token")
-				)
-				.andDo(print())
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("access_token").exists())
-				.andExpect(jsonPath("expires_in").exists())
-				;
+	mockMvc.perform(post("/oauth/token")
+			.with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
+			.param("refresh_token", reefresh_token)
+			.param("grant_type", "refresh_token")
+			)
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("access_token").exists())
+			.andExpect(jsonPath("expires_in").exists())
+			;
 	}
 ```
