@@ -10,8 +10,6 @@ tags:
 
 먼저 로그인과 로그아웃을 생각했다. 차근차근 다시 시작한다는 마인드로 로그인을 했을때 어떤 데이터를 가지고 있을까 생각해봤다.
 
-
-
 로그인을 하게되면 access_token을 받게된다. 그리고 유저의 정보를 저장할게 필요하다. 예를들면 id나 username이 필요하다. 그이유는 이를 이용하여 account(계정) 정보를 사용할 필요가 있기 때문이다. 이왕이면 id를 가지고 있는게 깔끔할것 같다.
 
 <br/>
@@ -28,58 +26,30 @@ tags:
 
 <br/>
 
-<br/>
-
 로그인한 정보가 30분 이후에 자동으로 로그아웃 되도록 한다. 
 
 그러기 위해서는 옆에 sidebar를 만들어서 token의 유효시간을 보여주면서 refresh_token을 이용해서 연장할 수 있도록 구현하겠다. access_token의 expires_in은 30분으로 0이되면 자동으로 로그아웃이 되도록 sessions을 날려버린다. 문제는 중간에 로그아웃을 했을때 Spring에 어떤 요청을 보내 로그아웃을 시켜야 한다는 것이다.
 
 <br/>
 
-## 오늘 구현한 이슈
+## Backend
 
-1. ##### Dress와 Account의 양방향관계 (되는지는 아직 잘 모르겠다.)
+##### CorsConfiguration이 작동하지 않아서 예전에 했던 CorsFilter로 대체했다. (됐었는데 왜 안돼..)
 
-   Dress가 JoinColumn을 사용해 주인이고 Account가 읽을수만 있다. cascade설정을 해주지 않아서 Dress를 등록할때 확인할 예정이다.
+<br/>
+
+##### email을 통해서 Account의 id를 반환 (Test 및 front 구현)
 
 ```java
-public class Account {
-	// 양방향 드레스 리스트
-	@OneToMany(mappedBy = "account")
-	private Set<Dress> dress_arr = new HashSet<Dress>();
-	}
-}
-
-public class Dress {	
-	@ManyToOne
-	@JoinColumn(name = "account_id")
-	private Account account;
-	}
+@GetMapping("/{email}")
+public ResponseEntity<?> findByEmail(@PathVariable String email){
+	return accountService.findByEmail(email);
 }
 ```
 
 <br/>
 
-2. ##### Dpage삭제 및 Dress 추가(comment는 하지 않음)
-
-   <br/>
-
-3. ##### CorsConfiguration이 작동하지 않아서 예전에 했던 CorsFilter로 대체했다. (됐었는데 왜 안돼..)
-
-   <br/>
-
-4. ##### email을 통해서 Account의 id를 반환 (Test 및 front 구현)
-
-   ```java
-   @GetMapping("/{email}")
-   public ResponseEntity<?> findByEmail(@PathVariable String email){
-   	return accountService.findByEmail(email);
-   }
-   ```
-
-   <br/>
-
-5. ##### refresh_token을 활용해 access_token을 받음 (Test 및 front 구현)
+##### refresh_token을 활용해 access_token을 받음 (Test 및 front 구현)
 
 ```java
 @Test
@@ -108,4 +78,153 @@ public void getAccessTokenByRefreshToken() throws Exception {
 			.andExpect(jsonPath("expires_in").exists())
 			;
 	}
+```
+
+
+
+<br/>
+
+## Front
+
+#### 로그인
+
+로그인을 하게되면 Front의 sessionStorage에 유저정보와 Token정보를 저장한다. (email, access_token, expires_in, refresh_token)
+
+<img src="../assets/project/toyproject_shopping/login.jpg">
+
+<br/>
+
+email과 password의 정보를 활용해 Oauth2 token을 발급받는다.
+
+```javascript
+login() {
+    let form = new FormData()
+	form.append('username', this.account.username)
+	form.append('password', this.account.password)
+	form.append('grant_type', this.account.grant_type)
+
+	this.$axios({
+		method: 'post',
+		url: 'http://localhost:8080/oauth/token',
+		data: form,
+		headers: {
+			'Content-Type': 'application/json;charset=UTF-8',
+			Accept: 'application/hal+json;charset=UTF-8',
+		},
+		auth: {
+			username: 'hjapp',
+			password: 'hjpass',
+		},
+	})
+		.then(r => {
+			console.log(r.data)
+			sessionStorage.setItem('email', this.account.username)
+			sessionStorage.setItem('access_token', r.data.access_token)
+			sessionStorage.setItem('expires_in', r.data.expires_in)
+			sessionStorage.setItem(
+				'refresh_token',
+				r.data.refresh_token,
+			)
+			for (var key in window.sessionStorage) {
+				// getItem( ) 메서드를 이용하여 key 값의 value 값을 찾는다.
+				console.log(key, sessionStorage.getItem(key))
+			}
+			alert('login')
+			window.location.href = 'http://localhost:3000'
+		})
+		.catch(e => {
+			console.log(e)
+			alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
+		})
+	}
+```
+
+<br/>
+
+#### 로그아웃
+
+```javascript
+logout() {
+	sessionStorage.clear()
+	alert('logout')
+	window.location.href = 'http://localhost:3000'
+},
+```
+
+로그아웃의 경우 sessionStorage을 비워준다. sessionStorage의 데이터가 바뀌어도 Vue가 다시 렌더링 하지 않아 다시 렌더링하기 위해 주소로 이동했다.
+
+<br/>
+
+#### Token_time
+
+로그인을 하게 되면 expires_in을 받아오는데 이것은 Token의 유효시간이다. Token이 필요한 이유는 Springboot서버에서 Token이 없을 경우 접근권한을 제한하기 때문에 access_token이 필요하다. 근데 유효시간이 지나버리는 경우를 생각해서 refresh_token이 있다. refresh_token을 사용하면 access_token의 시간을 연장할 수 있다.
+
+<img src="../assets/project/toyproject_shopping/home_tokentime.jpg">
+
+<br/>
+
+오른쪽에 보면  TokenTime의 시간연장 버튼을 만들었다. 버튼을 누르면 access_token의 시간을 연장하여 다시 30분으로 초기화된다.
+
+<br/>
+
+#### Time Interval
+
+1초가 지날때마다 연장시간을 감소시키기 위해서 함수를 하나 만들었다. 0이 되었을때 함수를 중지시킨다. 그리고 sessionStorage를 비우고 logout을 진행한다.
+
+```javascript
+mounted() {
+	if (sessionStorage.getItem('access_token') != null) {
+		this.time = sessionStorage.getItem('expires_in')
+		this.time *= 1
+		this.intervalid = setInterval(this.IntervalTime, 1000)
+	} else {
+		clearInterval(this.intervalid)
+	}
+}
+
+IntervalTime() {
+	this.time -= 1
+	sessionStorage.setItem('expires_in', this.time)
+	if (this.time <= 0) {
+		clearInterval(this.intervalid)
+        alert('token 시간 만료')
+        sessionStorage.clear()
+		window.location.href = 'http://localhost:3000'
+	}
+},
+```
+
+<br/>
+
+#### 시간연장
+
+```javascript
+extension() {
+	let form = new FormData()
+	form.append('grant_type', 'refresh_token')
+	form.append(
+		'refresh_token',
+		sessionStorage.getItem('refresh_token'),
+	)
+
+	this.$axios({
+		method: 'post',
+		url: 'http://localhost:8080/oauth/token',
+		data: form,
+		headers: {
+			'Content-Type': 'application/json;charset=UTF-8',
+			Accept: 'application/hal+json;charset=UTF-8',
+		},
+		auth: {
+			username: 'hjapp',
+			password: 'hjpass',
+		},
+	}).then(r => {
+		sessionStorage.setItem('access_token', r.data.access_token)
+		sessionStorage.setItem('expires_in', r.data.expires_in)
+		sessionStorage.setItem('refresh_token', r.data.refresh_token)
+		this.time = r.data.expires_in
+		alert('연장되었습니다.')
+	})
+}
 ```
