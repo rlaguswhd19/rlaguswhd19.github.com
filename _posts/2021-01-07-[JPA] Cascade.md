@@ -53,9 +53,9 @@ Study가 변할때 Account의 Set도 Study의 상태를 전이시키고 싶을�
   		session.save(study);
           
           Account hj = session.load(Account.class, account.getId());
-  		hj.setUsername("hj2");
-       	hj.setUsername("hj3");
-        	hj.setUsername("hj");
+  	hj.setUsername("hj2");
+       		hj.setUsername("hj3");
+        		hj.setUsername("hj");
   		System.out.println("====================================");
   		System.out.println(hj.getUsername());
   	}
