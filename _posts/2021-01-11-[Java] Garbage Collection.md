@@ -32,15 +32,11 @@ GC에 대해서 알아보기 전에 알아야 할 용어가 있다. 바로 'stop
 
    GC가 메모리를 사용하는 객체들을 Marking한다. 모든 오브젝트를 스캔하기 때문에 많은 시간을 소모한다.
 
-   
-
 2. ##### Normal Deletion
 
    ![deletaion](https://user-images.githubusercontent.com/46040824/104143143-ab441b80-5401-11eb-92ed-425ee7d6945a.JPG)
 
    Marking되어진 객체를 제외한 객체들을 제거하고 메모리를 반환한다.
-
-   
 
 3. ##### Compacting
 
@@ -87,21 +83,28 @@ GC는 `Weak Generational Hypothesis`에 기반한다.
 
    ![1](https://user-images.githubusercontent.com/46040824/104143434-c3686a80-5402-11eb-9589-1dea65b26616.JPG)
 
+   <br/>
+
 2. Eden Space가 가득차게 되면 GC가 사용하지 않는 객체를 제거한다. 제거되지 않은 객체는 S0영역으로 이동된다.
 
    ![3](https://user-images.githubusercontent.com/46040824/104143436-c4010100-5402-11eb-9325-6c769c67025f.JPG)
+   <br/>
 
 3. 다음 minor GC일떄 S0와 Eden영역의 참조되지 않은 객체는 제거되고 S1으로 이동한다. 이때 살아남은 객체들은 aged가 1씩 증가한다. 그리고 S0는 clear상태가 된다.
 
    ![4](https://user-images.githubusercontent.com/46040824/104143437-c4010100-5402-11eb-9ed2-5fd4a7f5a610.JPG)
 
+   <br/>
+
 4. 이러한 minor GC과정이 반복되면서 살아남은 객체들은 aged가 증가하고 특정 기준을 넘게 되면 Old 영역으로 이동한다. (여기서는 aged > 8)
 
    ![5](https://user-images.githubusercontent.com/46040824/104143439-c4999780-5402-11eb-9729-f6ca67880da1.JPG)
 
+   
+
    ![6](https://user-images.githubusercontent.com/46040824/104143440-c4999780-5402-11eb-9fc9-1625e4481604.JPG)
 
-
+   <br/>
 
 ##### 참고자료
 
