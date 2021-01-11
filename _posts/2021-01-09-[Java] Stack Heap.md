@@ -1,7 +1,7 @@
 ---
-title: "[Java] Stack_Heap"
+title: "[Java] Stack Heap"
 tags: 
- - java
+ - Java
 ---
 
 
