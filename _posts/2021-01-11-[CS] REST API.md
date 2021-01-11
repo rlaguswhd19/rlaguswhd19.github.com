@@ -78,7 +78,7 @@ Content-Type이 없어서 어떤 형식으로 작성된 응답인지 알 수 가
 
 <br/>
 
-![hate](C:\Users\rlagu\OneDrive\바탕 화면\hate.JPG)
+![hate](https://user-images.githubusercontent.com/46040824/104157176-faa04100-542d-11eb-9f94-6a53306b67f8.JPG)
 
 이것을 보면 Link정보가 있어서 전 게식물에 대한 URI와 다음 게시물에 대한 URI를 응답에 포함하여 다음 상태로 전이할 수 있다.
 
