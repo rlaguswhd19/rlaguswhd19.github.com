@@ -33,8 +33,13 @@ public class PostRepositoryTest {
 	@Autowired
 	PostRepository postRepository;
 	
+	@Before
+	public void setUp() {
+		postRepository.deleteAll();
+	}
+	
 	@Test
-    @Rollback(false)
+	@Rollback(false)
 	public void crudRepository() {
 		Post post = Post.builder()
 				.title("JPA 배우기")
@@ -45,9 +50,11 @@ public class PostRepositoryTest {
 		assertThat(post.getId()).isNull();
 		
 		Post newPost = postRepository.save(post);
-		
 		assertThat(newPost.getId()).isNotNull();
 		
+		List<Post> posts = postRepository.findAll();
+		assertThat(posts.size()).isEqualTo(1);
+		assertThat(posts).contains(newPost);
 	}
 }
 ```
