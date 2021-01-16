@@ -31,10 +31,10 @@ tags :
 public class PostRepositoryTest {
 
 	@Autowired
-    @Rollback(false)
 	PostRepository postRepository;
 	
 	@Test
+    @Rollback(false)
 	public void crudRepository() {
 		Post post = Post.builder()
 				.title("JPA 배우기")
@@ -64,21 +64,21 @@ public class PostRepositoryTest {
 
 ```java
 @Test
-	@Rollback(false)
-	public void pagingAndSortingRepository() {
-		Post post = Post.builder()
-				.title("아프리카 합격가즈아")
-				.comments(new HashSet<>())
-				.build();
-		
-		postRepository.save(post);
-		
-		Page<Post> pages = postRepository.findAll(PageRequest.of(0, 10));
-		assertThat(pages.getTotalElements()).isEqualTo(1);
-		assertThat(pages.getNumber()).isEqualTo(0);
-		assertThat(pages.getSize()).isEqualTo(10);
-		assertThat(pages.getNumberOfElements()).isEqualTo(1);
-	}
+@Rollback(false)
+public void pagingAndSortingRepository() {
+	Post post = Post.builder()
+			.title("아프리카 합격가즈아")
+			.comments(new HashSet<>())
+			.build();
+	
+	postRepository.save(post);
+	
+	Page<Post> pages = postRepository.findAll(PageRequest.of(0, 10));
+	assertThat(pages.getTotalElements()).isEqualTo(1);
+	assertThat(pages.getNumber()).isEqualTo(0);
+	assertThat(pages.getSize()).isEqualTo(10);
+	assertThat(pages.getNumberOfElements()).isEqualTo(1);
+}
 ```
 
 이렇게 하면 Page로 나오게 된다.
@@ -97,24 +97,24 @@ public interface PostRepository extends JpaRepository<Post, Long>{
 
 ```java
 @Test
-	@Rollback(false)
-	public void findByTitleContains() {
-		for (int i = 0; i < 10; i++) {
-			Post post = Post.builder()
-					.title("JPA"+i)
-					.comments(new HashSet<>())
-					.build();
-			
-			postRepository.save(post);
-		}
+@Rollback(false)
+public void findByTitleContains() {
+	for (int i = 0; i < 10; i++) {
+		Post post = Post.builder()
+				.title("JPA"+i)
+				.comments(new HashSet<>())
+				.build();
 		
-		Post post = new Post();
-		post.setTitle("안녕");
 		postRepository.save(post);
-		
-		Page<Post> posts = postRepository.findByTitleContains("녕", PageRequest.of(0, 10));
-		System.out.println(posts.getContent());
 	}
+	
+	Post post = new Post();
+	post.setTitle("안녕");
+	postRepository.save(post);
+	
+	Page<Post> posts = postRepository.findByTitleContains("녕", PageRequest.of(0, 10));
+	System.out.println(posts.getContent());
+}
 ```
 
 ```shell
