@@ -1,5 +1,5 @@
 ---
-title : "[afreecatv] 신규 입사자 게시판 "
+title : "[AFREECATV] 신규 입사자 게시판 "
 tags :
  - afreecatv
 ---
