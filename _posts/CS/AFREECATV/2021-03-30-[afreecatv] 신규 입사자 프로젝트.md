@@ -1,7 +1,7 @@
 ---
-title : "[AFREECATV] 신규 입사자 게시판 "
+title : "[AFREECATV] 신규 입사자 게시판 프로젝트"
 tags :
- - afreecatv
+ - Afreecatv
 ---
 
 

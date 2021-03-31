@@ -1,7 +1,7 @@
 ---
 title : "[JPA] SpringDataJPA"
 tags : 
- - JPA
+ - Jpa
 ---
 
 # SpringDataJPA

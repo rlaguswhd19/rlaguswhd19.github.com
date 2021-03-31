@@ -1,7 +1,7 @@
 ---
 title : "[JPA - SpringDataCommon] Null 처리"
 tags : 
- - JPA
+ - Jpa
  - SpringDataCommon
 ---
 

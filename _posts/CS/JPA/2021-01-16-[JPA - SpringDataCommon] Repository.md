@@ -1,7 +1,7 @@
 ---
 title : "[JPA - SpringDataCommon] Repository"
 tags :
- - JPA
+ - Jpa
  - SpringDataCommon
 ---
 

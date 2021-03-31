@@ -1,7 +1,7 @@
 ---
 title: "[JPA] Cascade"
 tags:
- - JPA
+ - Jpa
 ---
 
 

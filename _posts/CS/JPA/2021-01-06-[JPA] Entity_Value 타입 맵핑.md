@@ -1,7 +1,7 @@
 ---
 title: "[JPA] ORM Entity_Value 타입 맵핑"
 tags:
- - JPA
+ - Jpa
 ---
 
 

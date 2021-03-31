@@ -1,7 +1,7 @@
 ---
 title : "[JPA - SpringDataCommon] Interface 정의"
 tags : 
- - JPA
+ - Jpa
  - SpringDataCommon
 ---
 
