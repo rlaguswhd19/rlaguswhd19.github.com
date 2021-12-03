@@ -44,7 +44,7 @@ http://logback.qos.ch/manual/index.html
 implementation 'org.springframework.boot:spring-boot-starter-web'
 implementation 'ch.qos.logback:logback-classic:1.2.3'
 implementation 'org.slf4j:jcl-over-slf4j:1.7.25'
-    
+
 compileOnly 'org.projectlombok:lombok'
 ```
 
@@ -104,7 +104,7 @@ logging.level.com.search.api=info // 패키지별로 처리 가능
 
 <br/>
 
-#### logback-spring.xml
+## logback-spring.xml
 
 * `springProfile` : spring.profile.active 설정에 따른 properties를 가져오는것을 의미한다.
 
@@ -296,7 +296,7 @@ logging.level.com.search.api=info // 패키지별로 처리 가능
 
 <br/>
 
-##### logback-spring.xml
+## logback-spring.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -389,8 +389,6 @@ logging.level.com.search.api=info // 패키지별로 처리 가능
 
 </configuration>
 ```
-
-<br/>
 
 <br/>
 
