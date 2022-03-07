@@ -24,13 +24,7 @@ tags :
 
 <br/>
 
-# RestTemplate
-
-- spring 3.0 부터 지원한다.
-- 스프링에서 제공하는 http 통신에 유용하게 쓸 수 있는 템플릿
-- HTTP 서버와의 통신을 단순화하고 RESTful 원칙을 지킨다.
-
-<br/>
+## Request
 
 - RestTemplate
   - Spring 3부터 지원, REST API 호출이후 응답을 받을 때까지 기다리는 동기 방식.
@@ -41,8 +35,40 @@ tags :
 
 <br/>
 
+## RestTemplate
+
+- spring 3.0 부터 지원한다.
+- 스프링에서 제공하는 http 통신에 유용하게 쓸 수 있는 템플릿.
+- Multi-Thread와 Blocking방식을 사용.
+
+![restTemplate 방식](https://user-images.githubusercontent.com/46040824/156978869-df9fc21e-eb62-4d2e-8f56-48b3f89c27c8.png)
+
+<br/>
 
 
-출처
 
-https://musma.github.io/2019/04/17/blocking-and-synchronous.html - 동기 / 비동기, 블럭 / 논블럭
+## WebClient
+
+* Spring 5.0에서 추가된 인터페이스
+
+* Single-Thread와 Non-Blocking 방식을 사용
+
+  
+
+
+
+![WebClient 방식](https://user-images.githubusercontent.com/46040824/156979080-9ed31f7b-5c0d-4aaa-9b25-2a2bc9927bbc.jpg)
+
+
+
+## 성능 비교
+
+![성능비교](https://user-images.githubusercontent.com/46040824/156979174-f0ebbff7-f122-4432-b9e9-f9c47e7c0d14.png)
+
+
+
+##### 출처
+
+* https://musma.github.io/2019/04/17/blocking-and-synchronous.html - 동기 / 비동기, 블럭 / 논블럭
+
+* https://happycloud-lee.tistory.com/220 - RestTemplate과 WebClient 차이점
