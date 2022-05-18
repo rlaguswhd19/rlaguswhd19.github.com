@@ -92,3 +92,45 @@ page : 0부터 시작
 size : default => 20
 
 sort : property,ASC|DESC (ex id,desc) default => asc
+
+<br/>
+
+## HATEOAS
+
+PagedResourcesAssembler를 파라미터로 받아서 사용할 수 있다.
+
+```java
+@GetMapping("/posts")
+public ResponseEntity<PagedModel<EntityModel<Post>>> getPost(Pageable pageable, PagedResourcesAssembler<Post> pagedResourcesAssembler) {
+    Page<Post> page = postRepository.findAll(pageable);
+    return ResponseEntity.ok(pagedResourcesAssembler.toModel(page));
+}
+```
+
+
+
+##### Response
+
+ 응답에 links에 대한 정보가 들어가 있다.
+
+```json
+"_links":{  
+      "first":{  
+         "href":"http://localhost/posts?page=0&size=10&sort=created,desc&sort=title,asc"
+      },
+      "prev":{  
+         "href":"http://localhost/posts?page=1&size=10&sort=created,desc&sort=title,asc"
+      },
+      "self":{  
+         "href":"http://localhost/posts?page=2&size=10&sort=created,desc&sort=title,asc"
+      },
+      "next":{  
+         "href":"http://localhost/posts?page=3&size=10&sort=created,desc&sort=title,asc"
+      },
+      "last":{  
+         "href":"http://localhost/posts?page=19&size=10&sort=created,desc&sort=title,asc"
+      }
+   }
+
+```
+
