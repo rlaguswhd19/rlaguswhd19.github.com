@@ -17,7 +17,7 @@ JpaRepository.save()는 단순히 엔티티를 추가하는 메소드가 아니�
 
 ##### Transient or Detached 판단하는법
 
-[JPA Entity] (https://rlaguswhd19.github.io/2021/01/07/JPA-Cascade.html)
+[JPA Entity](https://rlaguswhd19.github.io/2021/01/07/JPA-Cascade.html)
 
 * 엔티티의 @Id 프로퍼티를 찾는다. 해당 프로퍼티가 null이면 Transient 상태로 판단하고 id가 null이 아니면 Detached 상태로 판단한다.
 * 엔티티가 Persistable 인터페이스를 구현하고 있다면 isNew() 메소드에 위임한다.
