@@ -1,5 +1,5 @@
 ---
-title : "[JPA] JPA Projection"
+title : "[JPA] Projection"
 tags : 
  - Jpa
 ---
