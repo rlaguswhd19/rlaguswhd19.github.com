@@ -1,5 +1,5 @@
 ---
-title : "[JPA] JPA Repository.save()"
+title : "[JPA] Repository.save()"
 tags : 
  - Jpa
 ---

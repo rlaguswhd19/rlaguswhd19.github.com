@@ -1,5 +1,5 @@
 ---
-title : "[JPA] JPA Repository"
+title : "[JPA] Repository"
 tags : 
  - Jpa
 ---

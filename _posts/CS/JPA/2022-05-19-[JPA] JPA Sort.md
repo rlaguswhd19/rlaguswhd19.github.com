@@ -1,5 +1,5 @@
 ---
-title : "[JPA] JPA Sort"
+title : "[JPA] Sort"
 tags : 
  - Jpa
 ---

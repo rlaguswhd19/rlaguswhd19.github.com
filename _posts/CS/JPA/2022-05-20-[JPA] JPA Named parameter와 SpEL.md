@@ -1,5 +1,5 @@
 ---
-title : "[JPA] JPA Named Parameter과 SpEL"
+title : "[JPA] Named Parameter과 SpEL"
 tags : 
  - Jpa
 ---

@@ -1,5 +1,5 @@
 ---
-title : "[JPA] JPA EntityGraph"
+title : "[JPA] EntityGraph"
 tags : 
  - Jpa
 ---
