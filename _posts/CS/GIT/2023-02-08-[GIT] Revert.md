@@ -51,3 +51,9 @@ local에서 사용하는 경우는 `reset`을 사용해도 된다. 하지만 ori
 ### revert
 
 revert는 reset과 다르게 커밋을 삭제하지 않고 추가한다.
+
+
+
+*출처*
+
+* https://kyounghwan01.github.io/blog/etc/git/git-reset-revert/#reset
