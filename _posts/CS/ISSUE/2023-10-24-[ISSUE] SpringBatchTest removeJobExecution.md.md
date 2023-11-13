@@ -1,5 +1,5 @@
 ---
-title : "[ISSUE] SpringBatchTest removeJobExecution()
+title : "[ISSUE] SpringBatchTest removeJobExcution"
 tags :
  - issue
 
