@@ -1,5 +1,5 @@
 ---
-title : "[ElasticSearch] 매핑과 필드타입
+title : "[ElasticSearch] 매핑과 필드타입"
 tags :
  - ElasticSearch
 ---
